@@ -37,6 +37,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq unzip
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -55,17 +56,15 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
-          # Build a docker container and
-          # push it to ECR so that it can
-          # be deployed to ECS.
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          IMAGE="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "image=$IMAGE" >> $GITHUB_OUTPUT
 
   continuous-deployment:
     name: Continuous Deployment
     needs: build-and-push-ecr-image
-    runs-on: self-hosted
+    runs-on: self-hosted # or add specific label if needed
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -83,7 +82,7 @@ jobs:
 
       - name: Pull latest image
         run: |
-          docker pull "${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest"
+          docker pull "730128024703.dkr.ecr.eu-north-1.amazonaws.com/network_security:latest"
 
       - name: Stop and remove container if running
         run: |
@@ -100,7 +99,7 @@ jobs:
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -e AWS_REGION=${{ secrets.AWS_REGION }} \
-            "${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest"
+            730128024703.dkr.ecr.eu-north-1.amazonaws.com/network_security:latest
 
       - name: Clean previous images and containers
         run: docker system prune -f
