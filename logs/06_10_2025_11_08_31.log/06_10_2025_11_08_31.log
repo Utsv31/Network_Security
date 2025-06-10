@@ -1,0 +1,20 @@
+[ 2025-06-10 11:09:18,470 ] 42 root - INFO - Start data Ingestion
+[ 2025-06-10 11:09:33,030 ] 65 root - INFO - Performed train test split on the dataframe
+[ 2025-06-10 11:09:33,030 ] 67 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[ 2025-06-10 11:09:33,030 ] 75 root - INFO - Exporting train and test file path.
+[ 2025-06-10 11:09:33,093 ] 84 root - INFO - Exported train and test file path.
+[ 2025-06-10 11:09:33,093 ] 45 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\06_10_2025_11_08_32\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\06_10_2025_11_08_32\\data_ingestion\\ingested\\test.csv')
+[ 2025-06-10 11:09:33,109 ] 55 root - INFO - Initiate the data Validation
+[ 2025-06-10 11:09:33,188 ] 32 root - INFO - Required number of columns:2
+[ 2025-06-10 11:09:33,188 ] 33 root - INFO - Data frame has columns:31
+[ 2025-06-10 11:09:33,188 ] 32 root - INFO - Required number of columns:2
+[ 2025-06-10 11:09:33,188 ] 33 root - INFO - Data frame has columns:31
+[ 2025-06-10 11:09:33,347 ] 53 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2025-06-10 11:09:33,347 ] 55 root - INFO - Starting data transformation
+[ 2025-06-10 11:09:33,373 ] 38 root - INFO - Entered get_data_trnasformer_object method of Trnasformation class
+[ 2025-06-10 11:09:33,373 ] 43 root - INFO - Initialise KNNImputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[ 2025-06-10 11:09:33,379 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-06-10 11:09:33,392 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-06-10 11:09:33,394 ] 46 root - INFO - Entered the save_object method of MainUtils class
+[ 2025-06-10 11:09:33,396 ] 50 root - INFO - Exited the save_object method of MainUtils class
+[ 2025-06-10 11:18:56,932 ] 868 urllib3.connectionpool - WARNING - Retrying (Retry(total=6, connect=7, read=7, redirect=7, status=7)) after connection broken by 'SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:2384)')': /Utsv31/Network_Security.mlflow/api/2.0/mlflow-artifacts/artifacts/4149a5c1240d433f894a67355f18fb73/dfaae2b0706146da89b32234561b5752/artifacts/model/model.pkl
