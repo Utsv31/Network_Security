@@ -1,19 +1,8 @@
 FROM python:3.10-slim-buster
-
-# Set working directory
 WORKDIR /app
+COPY . /app
 
-# Copy requirements first (leverages Docker caching)
-COPY requirements.txt .
+RUN apt update -y && apt install awscli -y
 
-# Install system dependencies and Python packages
-RUN apt-get update && \
-    apt-get install -y awscli && \
-    pip install --no-cache-dir -r requirements.txt && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Copy the rest of the application code
-COPY . .
-
-# Run the application
+RUN apt-get update && pip install -r requirements.txt
 CMD ["python3", "app.py"]
